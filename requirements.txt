@@ -1,0 +1,4 @@
+react-bootstrap
+axios
+react-router-dom
+mdb-react-ui-kit
