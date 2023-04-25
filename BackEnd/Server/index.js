@@ -4,14 +4,15 @@ const path = require("path");
 const express = require("express");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+const mysql = require("mysql");
 const PORT = process.env.PORT || 3001;
 
-const mysql = require("mysql");
+
 const connection = mysql.createConnection({
-    host: "localhost",
+    host: "10.43.81.152",
     user: "root",
-    password: "",
-    database: "Kueski"
+    password: "root",
+    database: "kueski"
 })
 
 
@@ -24,6 +25,13 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/requests", (req, res) => {
+    const connection = mysql.createConnection({
+        host: "10.43.81.152",
+        user: "root",
+        password: "root",
+        database: "kueski"
+    })
+    
     connection.connect()
 
     connection.query("SELECT * FROM requests", (err, result, fields) => {

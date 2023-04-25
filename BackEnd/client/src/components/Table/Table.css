@@ -1,0 +1,59 @@
+.main{
+    font-family: 'Montserrat';
+    font-weight: bold;
+    margin: 2rem;
+    margin-top: 10rem;
+    border-style: solid;
+    border-color: #082859;
+    border-radius: 1.5rem;
+    background-color: #082859;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    color: white;
+}
+
+.botones-texto{
+    font-size: 2rem;
+    text-align: left;
+}
+
+.botones{
+    font-size: 2rem;
+    text-align: right;
+}
+
+.fila{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem;
+}
+
+.tabla{
+    font-family: 'Montserrat';
+    font-weight: bold;
+    margin: 2rem;
+    margin-top: 6rem;
+    border-style: solid;
+    border-radius: 1.5rem;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    color: white;
+}
+
+.rdt_TableCol {
+    background-color: #082859;
+    color: #fff;
+}
+
+.rdt_TableCell {
+    position: absolute;
+    background-color: #72d13f;
+    color: #fff;
+}
