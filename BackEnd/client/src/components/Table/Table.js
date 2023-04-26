@@ -114,11 +114,11 @@ function RequestsTable() {
                 </div>
                 <div className='botones'>
                     <ButtonGroup>
-                        <Button variant="light" onClick={() => getData('all')}>Todas</Button>
-                        <Button variant="light" onClick={() => getData('Pending')}>Pendientes</Button>
-                        <Button variant="light" onClick={() => getData("Waiting")}>En espera</Button>
-                        <Button variant="light" onClick={() => getData('Rejected')}>Rechazadas</Button>
-                        <Button variant="light" onClick={() => getData('Done')}>Completadas</Button>
+                        <Button variant="light" className='seleccion' onClick={() => getData('all')}>Todas</Button>
+                        <Button variant="light" className='seleccion' onClick={() => getData('Pending')}>Pendientes</Button>
+                        <Button variant="light" className='seleccion' onClick={() => getData("Waiting")}>En espera</Button>
+                        <Button variant="light" className='seleccion' onClick={() => getData('Rejected')}>Rechazadas</Button>
+                        <Button variant="light" className='seleccion' onClick={() => getData('Done')}>Completadas</Button>
                     </ButtonGroup>
                 </div>
             </div>
