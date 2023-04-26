@@ -35,14 +35,16 @@ function RequestsTable() {
     const [requests, setRequests] = useState( [] );
 
     // Fetch data from the endpoint
-    const getData = async () => {
-        const response = await fetch('/api/requests');
+    const getData = async (type) => {
+        document.getElementById("spinner-overlay").hidden = false;   
+        const response = await fetch('/api/requests?type=' + type);
         const data = await response.json();
         setRequests(data);
+        document.getElementById("spinner-overlay").hidden = true;
     }
 
     useEffect(() => {
-        getData();
+        getData("all");
     }, []);
 
     // Columns
@@ -112,27 +114,32 @@ function RequestsTable() {
                 </div>
                 <div className='botones'>
                     <ButtonGroup>
-                        <Button variant="light">Pendientes</Button>
-                        <Button variant="light">En espera</Button>
-                        <Button variant="light">Rechazadas</Button>
-                        <Button variant="light">Completadas</Button>
+                        <Button variant="light" onClick={() => getData('all')}>Todas</Button>
+                        <Button variant="light" onClick={() => getData('Pending')}>Pendientes</Button>
+                        <Button variant="light" onClick={() => getData("Waiting")}>En espera</Button>
+                        <Button variant="light" onClick={() => getData('Rejected')}>Rechazadas</Button>
+                        <Button variant="light" onClick={() => getData('Done')}>Completadas</Button>
                     </ButtonGroup>
                 </div>
             </div>
             <div className='tabla'>
+                <div className="spinner-overlay" id="spinner-overlay" hidden>
+                    <div className="spinner">
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only"></span>
+                        </div>
+                    </div>
+                </div>
                 <DataTable  
                     // title="requests"
                     columns={columns}
                     data={filteredData}
+                    fixedHeader
+                    fixedHeaderScrollHeight="300px"
                     pagination
-                    paginationPerPage={5}
-                    paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
-                    paginationComponentOptions={{
-                        rowsPerPageText: 'Rows per page:',
-                        rangeSeparatorText: 'of',
-                        noRowsPerPage: false,
-                        selectAllRowsItem: true,
-                        selectAllRowsItemText: 'All',
+                    paginationPerPage={25}
+                    paginationComponentOptions={{ 
+                        noRowsPerPage: true
                     }}
                     subHeader
                     subHeaderComponent={subHeader}

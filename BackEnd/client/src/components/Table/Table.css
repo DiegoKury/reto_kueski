@@ -2,7 +2,7 @@
     font-family: 'Montserrat';
     font-weight: bold;
     margin: 2rem;
-    margin-top: 10rem;
+    margin-top: 7.5rem;
     border-style: solid;
     border-color: #082859;
     border-radius: 1.5rem;
@@ -35,10 +35,8 @@
     font-family: 'Montserrat';
     font-weight: bold;
     margin: 2rem;
-    margin-top: 6rem;
+    margin-top: 5rem;
     border-style: solid;
-    border-radius: 1.5rem;
-    background-color: white;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -56,4 +54,22 @@
     position: absolute;
     background-color: #72d13f;
     color: #fff;
+}
+
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black overlay */
+    z-index: 9999; /* make sure the overlay appears on top of other elements */
+}
+
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000; /* make sure the spinner appears on top of the overlay */
 }
