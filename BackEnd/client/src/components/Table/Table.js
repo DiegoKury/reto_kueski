@@ -39,7 +39,6 @@ function RequestsTable() {
         document.getElementById("spinner-overlay").hidden = false;   
         const response = await fetch('/api/requests?type=' + type);
         const data = await response.json();
-        console.log(data);
         setRequests(data);
         document.getElementById("spinner-overlay").hidden = true;
     }
@@ -80,10 +79,6 @@ function RequestsTable() {
             selector: row => row.request_status,
             sortable: true,
         },
-        {
-            name: 'Actions',
-            cell: row => <div dangerouslySetInnerHTML={{__html: row.action}}></div>,
-        }
     ];
 
     const [filtered, setFiltered] = useState('');
