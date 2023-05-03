@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 
 const connection = mysql.createConnection({
-    host: "10.43.81.152",
+    host: "10.43.83.98",
     user: "root",
     password: "root",
     database: "kueski"
@@ -48,7 +48,7 @@ app.get("/api", (req, res) => {
 // Endpoint for /api/requests?type=:request_status
 app.get("/api/requests", (req, res) => {
     const connection = mysql.createConnection({
-        host: "10.43.81.152",
+        host: "10.43.83.98",
         user: "root",
         password: "root",
         database: "kueski"
@@ -64,9 +64,42 @@ app.get("/api/requests", (req, res) => {
         if (err){
             console.log("Error: ", err);
         }
-        console.log("Result: ", result);
+        console.log(result);
+        for (i = 0; i < result.length; i++){
+            if (result[i].request_arco_right == "Access"){
+                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalAccess(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+            } else if (result[i].request_arco_right == "Rectify"){
+                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalRectify(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+            } else if (result[i].request_arco_right == "Cancel"){
+                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalCancel(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+            } else {
+                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalOppose(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+            }
+            result[i].action = action;
+        }
         res.json(result);
     })
+});
+
+
+// Endpoint for /api/request/:request_id
+app.get("/api/request/:request_id", (req, res) => {
+    const connection = mysql.createConnection({
+        host: "10.43.83.98",
+        user: "root",
+        password: "root",
+        database: "kueski"
+    })
+    request_id = req.params.request_id;
+    connection.connect()
+    sql = "SELECT * FROM requests INNER JOIN clients ON requests.client_id = clients.client_id WHERE request_id = " + request_id;
+    connection.query(sql, (err, result, fields) => {
+        if (err){
+            console.log("Error: ", err);
+        }
+        console.log(result);
+        res.json(result);
+    });
 });
 
 

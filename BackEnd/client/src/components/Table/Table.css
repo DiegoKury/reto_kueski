@@ -68,8 +68,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black overlay */
-    z-index: 9999; /* make sure the overlay appears on top of other elements */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 9999; 
 }
 
 .spinner {
@@ -77,5 +77,5 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10000; /* make sure the spinner appears on top of the overlay */
+    z-index: 10000;
 }
