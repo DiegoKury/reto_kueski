@@ -48,11 +48,11 @@ app.get("/api", (req, res) => {
 // Endpoint for /api/requests?type=:request_status
 app.get("/api/requests", (req, res) => {
     const connection = mysql.createConnection({
-        host: "10.43.83.98",
+        host: "192.168.1.24",
         user: "root",
         password: "root",
         database: "kueski"
-    })
+    });
     request_status = req.query.type;
     connection.connect()
     if (request_status == "all"){
@@ -67,13 +67,13 @@ app.get("/api/requests", (req, res) => {
         console.log(result);
         for (i = 0; i < result.length; i++){
             if (result[i].request_arco_right == "Access"){
-                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalAccess(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+                action = `<button variant="primary" class="btn btn-primary" onClick=mostrarModalAccess(${result[i].request_id}) style="font-size: 12px;"><i class fa fa-bars></i>Details</button>`;
             } else if (result[i].request_arco_right == "Rectify"){
-                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalRectify(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+                action = `<button type="button" class="btn btn-primary" onClick=mostrarModalRectify(${result[i].request_id}) style="font-size: 12px;"><i class fa fa-bars></i>Details</button>`;
             } else if (result[i].request_arco_right == "Cancel"){
-                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalCancel(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+                action = `<button type="button" class="btn btn-primary" onClick=mostrarModalCancel(${result[i].request_id}) style="font-size: 12px;"><i class fa fa-bars></i>Details</button>`;
             } else {
-                action = `<button type="button" className="btn btn-primary" onClick=mostrarModalOppose(${result[i].request_id})><i class fa fa-bars></i>Details</button>`;
+                action = `<button type="button" class="btn btn-primary" onClick=mostrarModalOppose(${result[i].request_id}) style="font-size: 12px;"><i class fa fa-bars></i>Details</button>`;
             }
             result[i].action = action;
         }
@@ -85,7 +85,7 @@ app.get("/api/requests", (req, res) => {
 // Endpoint for /api/request/:request_id
 app.get("/api/request/:request_id", (req, res) => {
     const connection = mysql.createConnection({
-        host: "10.43.83.98",
+        host: "192.168.1.24",
         user: "root",
         password: "root",
         database: "kueski"

@@ -1,40 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import DataTable, {createTheme} from 'react-data-table-component';
+import ReactDOM from 'react-dom';
+import DataTable from 'react-data-table-component';
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Filter from '../Filter/Filter';
 import 'styled-components';
 import './Table.css';
-
-
-createTheme('solarized', {
-    text: {
-        primary: '#268bd2',
-        secondary: '#2aa198',
-    },
-    background: {
-        default: '#002b36',
-    },
-    context: {
-        background: '#cb4b16',
-        text: '#FFFFFF',
-    },
-    divider: {
-        default: '#073642',
-    },
-    action: {
-        button: 'rgba(0,0,0,.54)',
-        hover: 'rgba(0,0,0,.08)',
-        disabled: 'rgba(0,0,0,.12)',
-    },
-}, 'dark');
+import Acceso from '../Acceso/Acceso';
+// import { faBars } from '@fortawesome/free-regular-svg-icons';
 
 
 function RequestsTable() {
-    // Hooks for the table
     const [requests, setRequests] = useState( [] );
 
-    // Fetch data from the endpoint
     const getData = async (type) => {
         document.getElementById("spinner-overlay").hidden = false;   
         const response = await fetch('/api/requests?type=' + type);
@@ -47,7 +25,6 @@ function RequestsTable() {
         getData("all");
     }, []);
 
-    // Columns
     const columns = [
         {
             name: 'Folio',
@@ -79,6 +56,10 @@ function RequestsTable() {
             selector: row => row.request_status,
             sortable: true,
         },
+        {
+            name: 'Action',
+            selector: row => <div dangerouslySetInnerHTML={{__html: row.action}}></div>,
+        }
     ];
 
     const [filtered, setFiltered] = useState('');
@@ -105,6 +86,10 @@ function RequestsTable() {
             />
         );
     }, [filtered, resetPaginationToggle]);
+
+    const mostrarModalAccess = (request_id) => {
+        <Acceso />
+    }
 
     return (
         <div className='main'>
