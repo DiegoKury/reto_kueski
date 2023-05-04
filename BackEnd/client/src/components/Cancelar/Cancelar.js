@@ -1,19 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 class Cancelar extends Component {
   state = {
+    request: {},
     lgShow: false,
+  } 
+
+  getCancel = async (request_id) => {
+    const response = await fetch(`/api/request/${request_id}`);
+    const data = await response.json();
+    const request_json = data[0];
+    console.log(request_json);
+    this.setState({ request: request_json });
   }
+
   handleModalOpen = () => {
     this.setState({ lgShow: true });
+    this.getCancel(this.props.request_id);
   }
 
   handleModalClose = () => {
     this.setState({ lgShow: false });
   }
+
 render() { 
   const { request_id } = this.props;
   return (
@@ -29,15 +44,20 @@ render() {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Are you sure that you want to CANCEL this clients information?</Form.Label>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Client with ID:</Form.Label>
-                <Form.Control as="textarea" rows={3} />
-              </Form.Group>
-            </Form>
+            <Row>
+              <Form>
+                <Form.Label>Are you sure that you want to CANCEL this client's information?</Form.Label>
+                <Col sm={4} md={4} >
+                  <Form.Label>Request Id</Form.Label>
+                  <Form.Control
+                    type='number'
+                    value={this.state.request.request_id || ''}
+                    autoFocus
+                    readOnly
+                  />
+                </Col>
+              </Form>
+            </Row>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary">
