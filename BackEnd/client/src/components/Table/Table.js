@@ -7,6 +7,9 @@ import Filter from '../Filter/Filter';
 import 'styled-components';
 import './Table.css';
 import Acceso from '../Acceso/Acceso';
+import Oponer from '../Oponer/Oponer';
+import Rectificar from '../Rectificar/Rectificar';
+import Cancelar from '../Cancelar/Cancelar';
 // import { faBars } from '@fortawesome/free-regular-svg-icons';
 
 
@@ -58,7 +61,7 @@ function RequestsTable() {
         },
         {
             name: 'Action',
-            selector: row => <div dangerouslySetInnerHTML={{__html: row.action}}></div>,
+            selector: row => row.request_arco_right === 'Access' ? <Acceso request_id={row.request_id}/> : row.request_arco_right === 'Rectify' ? <Rectificar request_id={row.request_id}/> : row.request_arco_right === 'Cancel' ? <Cancelar request_id={row.request_id}/> : <Oponer request_id={row.request_id} />,
         }
     ];
 

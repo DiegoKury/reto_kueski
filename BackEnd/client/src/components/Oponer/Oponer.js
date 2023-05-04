@@ -10,7 +10,13 @@ class Oponer extends Component {
   handleModalOpen = () => {
     this.setState({ lgShow: true });
   }
+
+  handleModalClose = () => {
+    this.setState({ lgShow: false });
+  }
+
 render() { 
+  const { request_id } = this.props;
   return (
       <>
       <Button onClick={this.handleModalOpen}>Details</Button>
@@ -18,9 +24,9 @@ render() {
           size="lg"
           show={this.state.lgShow}
           aria-labelledby="example-modal-sizes-title-lg">
-          <Modal.Header closeButton>
+          <Modal.Header closeButton onClick={this.handleModalClose}>
             <Modal.Title id="example-modal-sizes-title-lg">
-              Oposicion
+              Oposicion del cliente con ID: {request_id}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

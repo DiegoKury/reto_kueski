@@ -1,17 +1,36 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container'
 import React, { Component } from 'react'
 
 class Rectificar extends Component {
-  state = { 
+  state = {
+    request: {},
     lgShow: false,
   } 
 
+  getRectify = async (request_id) => {
+    const response = await fetch(`/api/request/${request_id}`);
+    const data = await response.json();
+    const request_json = data[0];
+    console.log(request_json);
+    this.setState({ request: request_json });
+  }
+
   handleModalOpen = () => {
     this.setState({ lgShow: true });
+    this.getRectify(this.props.request_id);
   }
+
+  handleModalClose = () => {
+    this.setState({ lgShow: false });
+  }
+
   render() { 
+    const { request_id } = this.props;
     return (
       <>
       <Button onClick={this.handleModalOpen}>Details</Button>
@@ -19,90 +38,129 @@ class Rectificar extends Component {
         size="lg"
         show={this.state.lgShow}
         aria-labelledby="example-modal-sizes-title-lg">
-        <Modal.Header closeButton>
+        <Modal.Header closeButton onClick={this.handleModalClose}>
           <Modal.Title id="example-modal-sizes-title-lg">
             Rectificar 
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className='row-1'>
-            <Form>
+          <Form>
+            <Row>
               <Form.Group controlId="exampleForm.ControlInput1">
-                <Form.Label>Name</Form.Label>
+                <Col sm={4} md={4} hidden>
+                  <Form.Label>Request Id</Form.Label>
+                  <Form.Control
+                    type='number'
+                    value={this.state.request.request_id || ''}
+                    autoFocus
+                    readOnly
+                  />
+                </Col>
+                <Col sm={4} md={4}>
+                  <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.client_name || ''}
                     autoFocus
+                    readOnly
                   />
+                </Col>
+                <Col sm={4} md={4}>
                 <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="text"
-                    autoFocus
-                  />
-                <Form.Label>Second Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="text"
-                    autoFocus
-                  />
+                <Form.Control
+                  type="text"
+                  value={this.state.request.client_first_last_name || ''}
+                  autoFocus
+                  readOnly
+                />
+                </Col>
               </Form.Group>
-            </Form>
-          </div>
-          <div className='row-2'>
-            <Form>
-                <Form.Group controlId="exampleForm.ControlInput1">
+            </Row>
+            <Row>
+              <Form.Group controlId="exampleForm.ControlInput1">
+                <Col sm={4} md={4}>
+                <Form.Label>Second Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={this.state.request.client_second_last_name || ''}
+                  autoFocus
+                  readOnly
+                />
+                </Col>
+                <Col sm={4} md={4}>
                   <Form.Label>Birth Date</Form.Label>
-                    <Form.Control
+                  <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.client_born_date || ''}
                     autoFocus
+                    readOnly
                   />
+                </Col>
+                <Col sm={4} md={4}>
                   <Form.Label>Nationality</Form.Label>
-                    <Form.Control
+                  <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.client_nationality || ''}
                     autoFocus
+                    readOnly
                   />
+                </Col>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group controlId="exampleForm.ControlInput1">
+                <Col sm={4} md={4}>
                   <Form.Label>Birth State</Form.Label>
-                    <Form.Control
+                  <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.client_birth_state || ''}
                     autoFocus
+                    readOnly
                   />
-                </Form.Group>
-            </Form>
-          </div>
-          <div className='row-3'>
-            <Form>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                </Col>
+                <Col sm={4} md={4}>
                   <Form.Label>CURP</Form.Label>
-                    <Form.Control
+                  <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.client_curp || ''}
                     autoFocus
+                    readOnly
                   />
+                </Col>
+                <Col sm={4} md={4}>
                   <Form.Label>E-mail</Form.Label>
-                    <Form.Control
+                  <Form.Control
                     type="email"
-                    placeholder="name@example.com"
+                    value={this.state.request.client_email || ''}
                     autoFocus
+                    readOnly
                   />
-                  <Form.Label>Adress</Form.Label>
-                    <Form.Control
+                </Col>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group controlId="exampleForm.ControlInput1">
+                <Col sm={4} md={4}>
+                  <Form.Label>Street</Form.Label>
+                  <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.address_street || ''}
                     autoFocus
+                    readOnly
                   />
-                  <Form.Label>Adress City</Form.Label>
-                    <Form.Control
+                </Col>
+                <Col sm={4} md={4}>
+                  <Form.Label>Address City</Form.Label>
+                  <Form.Control
                     type="text"
-                    placeholder="text"
+                    value={this.state.request.address_city || ''}
                     autoFocus
+                    readOnly
                   />
-                </Form.Group>
-              </Form>
-          </div>
+                </Col>
+              </Form.Group>
+            </Row>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary">
