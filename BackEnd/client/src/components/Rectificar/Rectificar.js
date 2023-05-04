@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import './Rectificar.css'
 class Rectificar extends Component {
   state = {
     request: {},
@@ -38,7 +38,7 @@ class Rectificar extends Component {
         show={this.state.lgShow}
         aria-labelledby="example-modal-sizes-title-lg">
         <Modal.Header closeButton onClick={this.handleModalClose}>
-          <Modal.Title id="example-modal-sizes-title-lg">
+          <Modal.Title className='derecho'>
             Rectificar 
           </Modal.Title>
         </Modal.Header>

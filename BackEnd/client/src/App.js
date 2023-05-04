@@ -1,7 +1,8 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from './components/Navigation/Navigation';
 import Table from './components/Table/Table';
-import Oponer from './components/Oponer/Oponer'
+import Login from './components/Login/Login';
 
 function App() {
   return (
