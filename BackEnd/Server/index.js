@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 
 const connection = mysql.createConnection({
-    host: "10.43.83.98",
+    host: "10.43.52.229",
     user: "root",
     password: "root",
     database: "kueski"

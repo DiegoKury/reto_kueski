@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import React, { Component } from 'react'
 
+class Acceso extends Component {
+  state = { 
+    lgShow: false,
+  } 
 
-function Acceso() {
-    const [lgShow, setLgShow] = useState(false);
-
-  return (
-    <>
-      <Button onClick={() => setLgShow(true)}>Details</Button>
+  handleModalOpen = () => {
+    this.setState({ lgShow: true });
+  }
+  render() { 
+    return (
+      <>
+      <Button onClick={this.handleModalOpen}>Details</Button>
       <Modal
         size="lg"
-        show={lgShow}
-        onHide={() => setLgShow(false)}
+        show={this.state.lgShow}
         aria-labelledby="example-modal-sizes-title-lg">
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
@@ -101,13 +105,13 @@ function Acceso() {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary">
             Generate PDF
           </Button>
         </Modal.Footer>
       </Modal>
     </>
-  );
+    );
+  }
 }
-
-render(<Acceso />);
+export default Acceso;
