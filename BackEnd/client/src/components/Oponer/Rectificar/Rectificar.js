@@ -1,23 +1,19 @@
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import React, { Component } from 'react'
 
-class Rectificar extends Component {
-  state = { 
-    lgShow: false,
-  } 
 
-  handleModalOpen = () => {
-    this.setState({ lgShow: true });
-  }
-  render() { 
-    return (
-      <>
-      <Button onClick={this.handleModalOpen}>Details</Button>
+function Rectificar() {
+    const [lgShow, setLgShow] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setLgShow(true)}>Details</Button>
       <Modal
         size="lg"
-        show={this.state.lgShow}
+        show={lgShow}
+        onHide={() => setLgShow(false)}
         aria-labelledby="example-modal-sizes-title-lg">
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">
@@ -105,19 +101,19 @@ class Rectificar extends Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary">
-            Send
+          <Button variant="secondary" onClick={handleClose}>
+            Close
           </Button>
-          <Button variant="primary">
+          <Button variant="secondary" onClick={handleClose}>
             Not Available
           </Button>
-          <Button variant="primary">
-            Close
+          <Button variant="secondary" onClick={handleClose}>
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
     </>
-    );
-  }
+  );
 }
+
 export default Rectificar;
