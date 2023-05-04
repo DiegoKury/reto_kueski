@@ -102,6 +102,84 @@ app.get("/api/request/:request_id", (req, res) => {
     });
 });
 
+app.get("/api/admins", (req, res) => {
+    const connection = mysql.createConnection({
+        host: "192.168.1.24",
+        user: "root",
+        password: "root",
+        database: "kueski"
+    })
+    connection.connect();
+    sql = "SELECT * FROM administrators";
+    connection.query(sql, (err, result, fields) => {
+        if (err){
+            console.log("Error: ", err);
+        }
+        console.log(result);
+        res.json(result);
+    });
+});
+
+app.get("/api/admin/:admin_id", (req, res) => {
+    const connection = mysql.createConnection({
+        host: "192.168.1.24",
+        user: "root",
+        password: "root",
+        database: "kueski"
+    })
+    admin_id = req.params.admin_id;
+    connection.connect();
+    sql = "SELECT * FROM administrators WHERE admin_id = " + admin_id;
+    connection.query(sql, (err, result, fields) => {
+        if (err){
+            console.log("Error: ", err);
+        }
+        console.log(result);
+        res.json(result);
+    });
+});
+
+app.put("/api/client/:client_id", (req, res) => {
+    const connection = mysql.createConnection({
+        host: "192.168.1.24",
+        user: "root",
+        password: "root",
+        database: "kueski"
+    })
+    client_id = req.params.client_id;
+    connection.connect();
+
+    //FALTA LEER LOS DATOS QUE SE QUIEREN CAMBIAR
+    sql = "UPDATE clients SET client_name = '" + req.body.client_name + "', client_email = '" + req.body.client_email + "', client_phone = '" + req.body.client_phone 
+        + "', client_address = '" + req.body.client_address + "' WHERE client_id = " + client_id;
+
+    connection.query(sql, (err, result, fields) => {
+        if (err){
+            console.log("Error: ", err);
+        }
+        console.log(result);
+        res.json(result);
+    });
+});
+
+app.delete("/api/client/:client_id", (req, res) => {
+    const connection = mysql.createConnection({
+        host: "192.168.1.24",
+        user: "root",
+        password: "root",
+        database: "kueski"
+    })
+    client_id = req.params.client_id;
+    connection.connect();
+    sql = "DELETE FROM clients WHERE client_id = " + client_id;
+    connection.query(sql, (err, result, fields) => {
+        if (err){
+            console.log("Error: ", err);
+        }
+        console.log(result);
+        res.json(result);
+    });
+});
 
 
 app.listen(PORT, () => {
