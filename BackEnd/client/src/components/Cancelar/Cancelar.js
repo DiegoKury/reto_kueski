@@ -50,6 +50,21 @@ class Cancelar extends Component {
     window.location.reload();
   }
 
+  submitCancel = async (event) => {
+    event.preventDefault();
+    var client_id = this.state.request.client_id;
+    const response = await fetch(`/api/client/${client_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lgShow: false });
+    window.location.reload();
+  }
+
 render() { 
   const { request_id } = this.props;
   return (
@@ -68,11 +83,20 @@ render() {
             <Row>
               <Form>
                 <Form.Label>Are you sure that you want to CANCEL this client's information?</Form.Label>
-                <Col sm={4} md={4} >
+                <Col sm={4} md={4} hidden>
                   <Form.Label>Request Id</Form.Label>
                   <Form.Control
                     type='number'
                     value={this.state.request.request_id || ''}
+                    autoFocus
+                    readOnly
+                  />
+                </Col>
+                <Col sm={4} md={4}>
+                  <Form.Label>Client Id</Form.Label>
+                  <Form.Control
+                    type='text'
+                    value={this.state.request.client_id || ''}
                     autoFocus
                     readOnly
                   />
@@ -88,7 +112,8 @@ render() {
               onClick={this.submitReject}>
               Reject Request
             </Button>
-            <Button variant="success">
+            <Button variant="success"
+              onClick={this.submitCancel}>
               Cancel user
             </Button>
           </Modal.Footer>
