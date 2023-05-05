@@ -29,6 +29,75 @@ class Rectificar extends Component {
     this.setState({ lgShow: false });
   }
 
+  submitWaiting = async (event) => {
+    event.preventDefault();
+    var request_id = this.state.request.request_id;
+    var req_status = 'Waiting';
+    var admin = window.localStorage.getItem('admin_id');
+    var body = {
+      request_status: req_status,
+      admin_id: admin,
+    };
+    const response = await fetch(`/api/requests/${request_id}?client=${this.state.request.client_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lgShow: false });
+    window.location.reload();
+  }
+
+  submitReject = async (event) => {
+    event.preventDefault();
+    var request_id = this.state.request.request_id;
+    var req_status = 'Reject';
+    var admin = window.localStorage.getItem('admin_id');
+    var body = {
+      request_status: req_status,
+      admin_id: admin,
+    };
+    const response = await fetch(`/api/requests/${request_id}?client=${this.state.request.client_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lgShow: false });
+    window.location.reload();
+  }
+
+  submitRectify = async (event) => {
+    event.preventDefault();
+    var request_id = this.state.request.request_id;
+    var req_status = 'Complete';
+    var admin = window.localStorage.getItem('admin_id');
+    var body = {
+      request_status: req_status,
+      admin_id: admin,
+      fields: this.state.field,
+      changed: this.state.changed,
+    };
+    const response = await fetch(`/api/requests/${request_id}?client=${this.state.request.client_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lgShow: false });
+    window.location.reload();
+  }
+
+
   render() { 
     const { request_id } = this.props;
     return (
@@ -195,10 +264,16 @@ class Rectificar extends Component {
           <Button variant="danger" onClick={this.handleModalClose}>
             Close
           </Button>
-          <Button variant="primary">
+          <Button variant="primary"
+            onClick={this.submitReject}>
+            Reject Request
+          </Button>
+          <Button variant="primary"
+            onClick={this.submitWaiting}>
             Not Available
           </Button>
-          <Button variant="success">
+          <Button variant="success"
+            onClick={this.submitRectify}>
             Save changes
           </Button>
         </Modal.Footer>

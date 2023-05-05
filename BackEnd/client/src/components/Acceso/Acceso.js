@@ -29,7 +29,30 @@ class Acceso extends Component {
   handleModalClose = () => {
     this.setState({ lgShow: false });
   }
-  
+
+  submitAccess = async (event) => {
+    event.preventDefault();
+    var request_id = this.state.request.request_id;
+    var req_status = 'Complete';
+    var admin = window.localStorage.getItem('admin_id');
+    var body = { 
+      request_status: req_status,
+      admin_id: admin,
+    }
+    const response = await fetch(`/api/requests/${request_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lgShow: false });
+    window.location.reload();
+  }
+
+
   render() { 
     const { request_id } = this.props;
 
@@ -175,7 +198,8 @@ class Acceso extends Component {
             <Button variant="primary">
               Generate PDF
             </Button>
-            <Button variant="success">
+            <Button variant="success"
+              onClick={this.submitAccess}>
               Completed
             </Button>
           </Modal.Footer>

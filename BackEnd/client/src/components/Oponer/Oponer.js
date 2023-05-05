@@ -29,6 +29,28 @@ class Oponer extends Component {
     this.setState({ lgShow: false });
   }
 
+  submitReject = async (event) => {
+    event.preventDefault();
+    var request_id = this.state.request.request_id;
+    var req_status = 'Rejected';
+    var admin = window.localStorage.getItem('admin_id');
+    var body = {
+      request_status: req_status,
+      admin_id: admin,
+    }
+    const response = await fetch(`/api/requests/${request_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    this.setState({ lgShow: false });
+    window.location.reload();
+  }
+
 render() { 
   const { request_id } = this.props;
   return (
@@ -63,7 +85,11 @@ render() {
             <Button variant="danger" onClick={this.handleModalClose}>
               Close
             </Button>
-            <Button variant="primary">
+            <Button variant="primary"
+              onClick={this.submitReject}>
+              Reject Request
+            </Button>
+            <Button variant="success">
               Oppose
             </Button>
           </Modal.Footer>
