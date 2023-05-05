@@ -16,7 +16,6 @@ class Cancelar extends Component {
     const response = await fetch(`/api/request/${request_id}`);
     const data = await response.json();
     const request_json = data[0];
-    console.log(request_json);
     this.setState({ request: request_json });
   }
 
