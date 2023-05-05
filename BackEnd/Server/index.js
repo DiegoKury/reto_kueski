@@ -221,26 +221,53 @@ app.put("/api/client/:client_id", (req, res) => {
 */
 app.put("/api/requests/:request_id", (req, res) => {
     request_id = req.params.request_id;
+    client_id = req.query.client;
+
+
     if (req.body.fields != null){
         sql = "UPDATE requests SET request_status = '" + req.body.request_status + "', admin_id = " + req.body.admin_id + " WHERE request_id = " + request_id + ";";
-        sql2 = "UPDATE clients SET " + req.body.fields + " = '" + req.body.changed + "' WHERE client_id = " + req.body.client_id + ";";
-    } 
+        connection.query(sql, (err, result, fields) => {
+            if (err){
+                console.log("Error: ", err);
+            }
+            console.log(result);
+            res.json(result);
+        });
+        sql2 = "UPDATE clients SET " + req.body.fields + " = '" + req.body.changed + "' WHERE client_id = " + client_id + ";";
+        connection.query(sql2, (err, result, fields) => {
+            if (err){
+                console.log("Error: ", err);
+            }
+            console.log(result);
+            res.json(result);
+        });
+    }
+    else{
+        sql = "UPDATE requests SET request_status = '" + req.body.request_status + "', admin_id = " + req.body.admin_id + " WHERE request_id = " + request_id + ";";
+        connection.query(sql, (err, result, fields) => {
+            if (err){
+                console.log("Error: ", err);
+            }
+            console.log(result);
+            res.json(result);
+        });
+    }
 
 });
 
 app.delete("/api/client/:client_id", (req, res) => {
-
-    client_id = req.params.client_id;
-    //connection.connect();
-    sql = "DELETE FROM clients WHERE client_id = " + client_id;
-    connection.query(sql, (err, result, fields) => {
-        if (err){
-            console.log("Error: ", err);
-        }
-        console.log(result);
-        res.json(result);
+    const client_id = req.params.client_id;
+    const sql = "DELETE FROM clients WHERE client_id = ?";
+    connection.query(sql, [client_id], (err, result, fields) => {
+      if (err) {
+        console.log("Error:", err);
+        res.status(500).send("Error al eliminar el cliente");
+        return;
+      }
+      console.log(result);
+      res.json(result);
     });
-});
+  });
 
 
 app.listen(PORT, () => {
