@@ -5,3 +5,5 @@ mdb-react-ui-kit
 react-data-table-component
 styled-components
 react-router-dom
+jspdf
+jspdf-autotable

@@ -4,9 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
+import logo from './images/kueski.png';
 import './Acceso.css';
-
-
 
 class Acceso extends Component {
   state = {
@@ -30,28 +31,39 @@ class Acceso extends Component {
     this.setState({ lgShow: false });
   }
 
-  submitAccess = async (event) => {
-    event.preventDefault();
-    var request_id = this.state.request.request_id;
-    var req_status = 'Complete';
-    var admin = window.localStorage.getItem('admin_id');
-    var body = { 
-      request_status: req_status,
-      admin_id: admin,
-    }
-    const response = await fetch(`/api/requests/${request_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
-    console.log(data);
-    this.setState({ lgShow: false });
-    window.location.reload();
-  }
+  generatePDF = () => {
+    const docTest = new jsPDF()
+    docTest.addImage(logo, 'PNG', 12, 10, 70, 25)
+    docTest.setFontSize(20);
+    docTest.text('Access Data', 155, 30)
+    docTest.setLineWidth(0.8);
+    docTest.line(15, 36, 195, 36);
 
+    autoTable(docTest, {
+      startX: 20,
+      startY: 50,
+      headStyles: { valign: 'middle' },
+      bodyStyles: { valign: 'middle' },
+      head: [['Data', '']],
+      body: [
+        ['Name', `${this.state.request.client_name}`],
+        ['Last Name', `${this.state.request.client_first_last_name}`],
+        ['Second Last Name', `${this.state.request.client_second_last_name}`],
+        ['Birth Date', `${this.state.request.client_born_date}`],
+        ['Nationality', `${this.state.request.client_nationality}`],
+        ['Birth State', `${this.state.request.client_birth_state}`],
+        ['CURP', `${this.state.request.client_curp}`],
+        ['E-mail', `${this.state.request.client_email}`],
+        ['Street', `${this.state.request.address_street}`],
+        ['Adress City', `${this.state.request.address_city}`],
+        ['Phone', `${this.state.request.client_phone}`],
+        ['Occupation', `${this.state.request.client_occupation}`],
+      ],
+    })
+
+    docTest.save(`${this.state.request.client_name}_${this.state.request.client_first_last_name}_Data.pdf`)
+
+  }
 
   render() { 
     const { request_id } = this.props;
@@ -195,11 +207,10 @@ class Acceso extends Component {
             <Button variant="danger" onClick={this.handleModalClose}>
               Close
             </Button>
-            <Button variant="primary">
+            <Button onClick={this.generatePDF} variant="primary">
               Generate PDF
             </Button>
-            <Button variant="success"
-              onClick={this.submitAccess}>
+            <Button variant="success">
               Completed
             </Button>
           </Modal.Footer>
