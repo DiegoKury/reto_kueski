@@ -148,12 +148,36 @@ class Acceso extends Component {
                     readOnly
                   />
                 </Col>
+                <Col sm={4} md={4}>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={this.state.request.client_phone || ''}
+                  autoFocus
+                  readOnly
+                />
+              </Col>
+              <Col sm={4} md={4}>
+                <Form.Label>Occupation</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={this.state.request.client_occupation || ''}
+                  autoFocus
+                  readOnly
+                />
+              </Col>
               </Row>
             </Form>
           </Modal.Body>
           <Modal.Footer>
+            <Button variant="danger" onClick={this.handleModalClose}>
+              Close
+            </Button>
             <Button variant="primary">
               Generate PDF
+            </Button>
+            <Button variant="success">
+              Completed
             </Button>
           </Modal.Footer>
         </Modal>

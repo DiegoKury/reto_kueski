@@ -1,5 +1,5 @@
 // server/index.js
-
+const keys = require("./keys")
 const path = require("path");
 const express = require("express");
 const fs = require("fs");
@@ -9,9 +9,9 @@ const PORT = process.env.PORT || 3001;
 
 
 const connection = mysql.createConnection({
-    host: "kueski.mysql.database.azure.com",
-    user: "FJerm",
-    password: "AWU9y$%Ddy",
+    host: keys.host,
+    user: keys.user,
+    password: keys.password,
     database: "kueski",
     ssl: {
         ca: fs.readFileSync(path.resolve(__dirname, "../DigiCertGlobalRootCA.crt.pem"))
@@ -51,9 +51,9 @@ app.get("/api", (req, res) => {
 // Endpoint for /api/requests?type=:request_status
 app.get("/api/requests", (req, res) => {
     const connection = mysql.createConnection({
-        host: "kueski.mysql.database.azure.com",
-        user: "FJerm",
-        password: "AWU9y$%Ddy",
+        host: keys.host,
+        user: keys.user,
+        password: keys.password,
         database: "kueski",
         ssl: {
             ca: fs.readFileSync(path.resolve(__dirname, "../DigiCertGlobalRootCA.crt.pem"))
@@ -72,7 +72,9 @@ app.get("/api/requests", (req, res) => {
         }
         console.log(result);
         for (i = 0; i < result.length; i++){
-            if (result[i].request_arco_right == "Access"){
+            if (result[i].request_status == "Complete" || result[i].request_status == "Rejected"){
+                action = `<p>No action available</p>`;
+            } else if (result[i].request_arco_right == "Access"){
                 action = `<button variant="primary" class="btn btn-primary" onClick=mostrarModalAccess(${result[i].request_id}) style="font-size: 12px;"><i class fa fa-bars></i>Details</button>`;
             } else if (result[i].request_arco_right == "Rectify"){
                 action = `<button type="button" class="btn btn-primary" onClick=mostrarModalRectify(${result[i].request_id}) style="font-size: 12px;"><i class fa fa-bars></i>Details</button>`;
@@ -91,9 +93,9 @@ app.get("/api/requests", (req, res) => {
 // Endpoint for /api/request/:request_id
 app.get("/api/request/:request_id", (req, res) => {
     const connection = mysql.createConnection({
-        host: "kueski.mysql.database.azure.com",
-        user: "FJerm",
-        password: "AWU9y$%Ddy",
+        host: keys.host,
+        user: keys.user,
+        password: keys.password,
         database: "kueski",
         ssl: {
             ca: fs.readFileSync(path.resolve(__dirname, "../DigiCertGlobalRootCA.crt.pem"))

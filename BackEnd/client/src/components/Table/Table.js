@@ -60,7 +60,8 @@ function RequestsTable() {
         },
         {
             name: 'Action',
-            selector: row => row.request_arco_right === 'Access' ? <Acceso request_id={row.request_id}/> : row.request_arco_right === 'Rectify' ? <Rectificar request_id={row.request_id}/> : row.request_arco_right === 'Cancel' ? <Cancelar request_id={row.request_id}/> : <Oponer request_id={row.request_id} />,
+            selector: row => row.request_status === "Complete" || row.request_status === "Rejected" ? <p style={{color: "red", fontWeight: "bold", fontSize: "16px"}}>No actions available</p> : 
+            row.request_arco_right === 'Access' ? <Acceso request_id={row.request_id}/> : row.request_arco_right === 'Rectify' ? <Rectificar request_id={row.request_id}/> : row.request_arco_right === 'Cancel' ? <Cancelar request_id={row.request_id}/> : <Oponer request_id={row.request_id} />,
         }
     ];
 
@@ -105,7 +106,7 @@ function RequestsTable() {
                         <Button variant="light" className='seleccion' onClick={() => getData('Pending')}>Pendientes</Button>
                         <Button variant="light" className='seleccion' onClick={() => getData("Waiting")}>En espera</Button>
                         <Button variant="light" className='seleccion' onClick={() => getData('Rejected')}>Rechazadas</Button>
-                        <Button variant="light" className='seleccion' onClick={() => getData('Done')}>Completadas</Button>
+                        <Button variant="light" className='seleccion' onClick={() => getData('Complete')}>Completadas</Button>
                     </ButtonGroup>
                 </div>
             </div>

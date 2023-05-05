@@ -60,8 +60,11 @@ render() {
             </Row>
           </Modal.Body>
           <Modal.Footer>
+            <Button variant="danger" onClick={this.handleModalClose}>
+              Close
+            </Button>
             <Button variant="primary">
-              Send
+              Cancel user
             </Button>
           </Modal.Footer>
         </Modal>

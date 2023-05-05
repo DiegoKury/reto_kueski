@@ -17,3 +17,8 @@
     font-family: 'Montserrat';
     font-weight: bold;
 }
+
+.red-text {
+    color: red;
+    font-weight: bold;
+}

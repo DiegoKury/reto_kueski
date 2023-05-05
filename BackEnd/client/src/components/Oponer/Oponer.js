@@ -61,8 +61,11 @@ render() {
               </Row>
           </Modal.Body>
           <Modal.Footer>
+            <Button variant="danger" onClick={this.handleModalClose}>
+              Close
+            </Button>
             <Button variant="primary">
-              Send
+              Oppose
             </Button>
           </Modal.Footer>
         </Modal>

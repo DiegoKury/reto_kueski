@@ -9,6 +9,8 @@ class Rectificar extends Component {
   state = {
     request: {},
     lgShow: false,
+    field: '',
+    changed: '',
   } 
 
   getRectify = async (request_id) => {
@@ -16,7 +18,7 @@ class Rectificar extends Component {
     const data = await response.json();
     const request_json = data[0];
     console.log(request_json);
-    this.setState({ request: request_json });
+    this.setState({ request: request_json, field: (request_json.request_comment).split(":")[0], changed: (request_json.request_comment).split(":")[1] });
   }
 
   handleModalOpen = () => {
@@ -52,110 +54,153 @@ class Rectificar extends Component {
                   value={this.state.request.request_id || ''}
                   autoFocus
                   readOnly
+                  id='request_id'
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.client_name || ''}
+                  value={this.state.field === 'client_name' ? this.state.changed : this.state.request.client_name || ''}
                   autoFocus
                   readOnly
+                  id='client_name'
+                  className={this.state.field === 'client_name' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
-                value={this.state.request.client_first_last_name || ''}
+                value={this.state.field === 'client_first_last_name' ? this.state.changed : this.state.request.client_first_last_name || ''}
                 autoFocus
                 readOnly
+                id='client_first_last_name'
+                className={this.state.field === 'client_first_last_name' ? 'red-text' : ''}
               />
               </Col>
               <Col sm={4} md={4}>
               <Form.Label>Second Last Name</Form.Label>
               <Form.Control
                 type="text"
-                value={this.state.request.client_second_last_name || ''}
+                value={this.state.field === 'client_second_last_name' ? this.state.changed : this.state.request.client_second_last_name || ''}
                 autoFocus
                 readOnly
+                id='client_second_last_name'
+                className={this.state.field === 'client_second_last_name' ? 'red-text' : ''}
               />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>Birth Date</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.client_born_date || ''}
+                  value={this.state.field === 'client_born_date' ? this.state.changed : this.state.request.client_born_date || ''}
                   autoFocus
                   readOnly
+                  id='client_born_date'
+                  className={this.state.field === 'client_born_date' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>Nationality</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.client_nationality || ''}
+                  value={this.state.field === 'client_nationality' ? this.state.changed : this.state.request.client_nationality || ''}
                   autoFocus
                   readOnly
+                  id='client_nationality'
+                  className={this.state.field === 'client_nationality' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>Birth State</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.client_birth_state || ''}
+                  value={this.state.field === 'client_birth_state' ? this.state.changed : this.state.request.client_birth_state || ''}
                   autoFocus
                   readOnly
+                  id='client_birth_state'
+                  className={this.state.field === 'client_birth_state' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>CURP</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.client_curp || ''}
+                  value={this.state.field === 'client_curp' ? this.state.changed : this.state.request.client_curp || ''}
                   autoFocus
                   readOnly
+                  id='client_curp'
+                  className={this.state.field === 'client_curp' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>E-mail</Form.Label>
                 <Form.Control
                   type="email"
-                  value={this.state.request.client_email || ''}
+                  value={this.state.field === 'client_email' ? this.state.changed : this.state.request.client_email || ''}
                   autoFocus
                   readOnly
+                  id='client_email'
+                  className={this.state.field === 'client_email' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>Street</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.address_street || ''}
+                  value={this.state.field === 'address_street' ? this.state.changed : this.state.request.address_street || ''}
                   autoFocus
                   readOnly
+                  id='address_street'
+                  className={this.state.field === 'address_street' ? 'red-text' : ''}
                 />
               </Col>
               <Col sm={4} md={4}>
                 <Form.Label>Address City</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.request.address_city || ''}
+                  value={this.state.field === 'address_city' ? this.state.changed : this.state.request.address_city || ''}
                   autoFocus
                   readOnly
+                  id='address_city'
+                  className={this.state.field === 'address_city' ? 'red-text' : ''}
+                />
+              </Col>
+              <Col sm={4} md={4}>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={this.state.field === 'client_phone' ? this.state.changed : this.state.request.client_phone || ''}
+                  autoFocus
+                  readOnly
+                  id='client_phone'
+                  className={this.state.field === 'client_phone' ? 'red-text' : ''}
+                />
+              </Col>
+              <Col sm={4} md={4}>
+                <Form.Label>Occupation</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={this.state.field === 'client_occupation' ? this.state.changed : this.state.request.client_occupation || ''}
+                  autoFocus
+                  readOnly
+                  id='client_occupation'
+                  className={this.state.field === 'client_occupation' ? 'red-text' : ''}
                 />
               </Col>
             </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary">
-            Send
+          <Button variant="danger" onClick={this.handleModalClose}>
+            Close
           </Button>
           <Button variant="primary">
             Not Available
           </Button>
-          <Button variant="primary">
-            Close
+          <Button variant="success">
+            Save changes
           </Button>
         </Modal.Footer>
       </Modal>
