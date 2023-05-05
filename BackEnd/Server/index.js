@@ -277,15 +277,37 @@ app.put("/api/requests/:request_id", (req, res) => {
 
 app.delete("/api/client/:client_id", (req, res) => {
     const client_id = req.params.client_id;
-    const sql = "DELETE FROM clients WHERE client_id = " + client_id + ";";
-    connection.query(sql, [client_id], (err, result, fields) => {
+    const sql = "DELETE FROM identification WHERE client_id = " + client_id + ";";
+    const sql2 = "DELETE FROM requests WHERE client_id = " + client_id + ";";
+    const sql3 = "DELETE FROM clients WHERE client_id = " + client_id + ";";
+    connection.query(sql, (err, result, fields) => {
       if (err) {
         console.log("Error:", err);
-        res.status(500).send("Error al eliminar el cliente");
+        res.status(500).send("Error al eliminar la identificacion");
         return;
       }
-      console.log(result);
-      res.json(result);
+      //console.log(result);
+      //res.json({message: "Success!"});
+
+      connection.query(sql2, (err, result, fields) => {
+        if (err) {
+          console.log("Error:", err);
+          res.status(500).send("Error al eliminar el request");
+          return;
+        }
+        //console.log(result);
+        //res.json({message: "Success!"});
+      });
+
+      connection.query(sql3, (err, result, fields) => {
+        if (err) {
+          console.log("Error:", err);
+          res.status(500).send("Error al eliminar el cliente");
+          return;
+        }
+        //console.log(result);
+        res.json({message: "Success!"});
+      });
     });
   });
 
