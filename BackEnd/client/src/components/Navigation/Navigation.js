@@ -7,7 +7,9 @@ const Navigation = () => {
     return ( 
         <Navbar className='NavBar'>
             <Container className='logo-kueski'>
-                <img width='180' height='90' src={logo} alt='kueski'/>
+                <a href="/App.js">
+                    <img width='180' height='90' src={logo} alt='kueski'/>
+                </a>
             </Container>
             <Container className='empresa'>
                 <Navbar.Brand href="#home">Kueski Administrator</Navbar.Brand>

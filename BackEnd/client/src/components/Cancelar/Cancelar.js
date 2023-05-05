@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import './Cancelar.css';
 
 class Cancelar extends Component {
   state = {
@@ -39,7 +39,7 @@ render() {
           show={this.state.lgShow}
           aria-labelledby="example-modal-sizes-title-lg">
           <Modal.Header closeButton onClick={this.handleModalClose}>
-            <Modal.Title id="example-modal-sizes-title-lg">
+            <Modal.Title className='derecho'>
               Cancelacion
             </Modal.Title>
           </Modal.Header>
