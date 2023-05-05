@@ -120,6 +120,18 @@ app.get("/api/admins", (req, res) => {
     //connection.end();
 });
 
+app.get("/api/admins/:admin_number", (req, res) => {
+    console.log(req.params.admin_number);
+    sql = "SELECT * FROM administrator WHERE admin_employee_number = " + req.params.admin_number + ";";
+    connection.query(sql, (err, result, fields) => {
+        if (err){
+            console.log("Error: ", err);
+        }
+        console.log(result);
+        res.json(result);
+    });
+});
+
 app.get("/api/admin/:admin_id", (req, res) => {
 
     admin_id = req.params.admin_id;
