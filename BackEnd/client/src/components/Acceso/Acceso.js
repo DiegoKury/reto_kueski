@@ -42,7 +42,7 @@ class Acceso extends Component {
           aria-labelledby="example-modal-sizes-title-lg">
           <Modal.Header closeButton onClick={this.handleModalClose}>
             <Modal.Title className='derecho'>
-              Acceso 
+              Access
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

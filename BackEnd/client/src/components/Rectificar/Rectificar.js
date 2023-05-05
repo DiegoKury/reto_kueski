@@ -40,7 +40,7 @@ class Rectificar extends Component {
         aria-labelledby="example-modal-sizes-title-lg">
         <Modal.Header closeButton onClick={this.handleModalClose}>
           <Modal.Title className='derecho'>
-            Rectificar 
+            Rectify
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

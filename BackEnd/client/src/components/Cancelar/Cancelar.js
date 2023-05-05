@@ -39,7 +39,7 @@ render() {
           aria-labelledby="example-modal-sizes-title-lg">
           <Modal.Header closeButton onClick={this.handleModalClose}>
             <Modal.Title className='derecho'>
-              Cancelacion
+              Cancel
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

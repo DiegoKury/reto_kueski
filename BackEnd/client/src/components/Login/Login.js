@@ -22,7 +22,9 @@ class Login extends Component {
                     </div>
                     <MDBInput wrapperClass='texto' label='Usuario' id='form1' type='email'/>
                     <MDBInput wrapperClass='texto' label='Contraseña' id='form2' type='password'/>
-                    <Button href='./App.js'>Iniciar Sesion</Button>
+                    <div className="text-center">
+                        <Button href='./'>Iniciar Sesion</Button>
+                    </div>
                 </MDBContainer>
             </div>
         );
