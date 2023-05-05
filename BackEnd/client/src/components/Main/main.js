@@ -6,6 +6,9 @@ import Navigation from '../Navigation/Navigation';
 
 
 function Main() {
+    if (!window.localStorage.getItem('admin_id')) {
+        window.location.href = '/login';
+    }
     return (
         <div className="App">
             <Navigation />

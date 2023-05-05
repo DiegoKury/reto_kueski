@@ -21,11 +21,12 @@ const Navigation = () => {
                     Signed in as: Jorge Del Río
                     </Navbar.Text>
                     <Navbar.Text className='text'>
-                    <a href="#logout">Log Out</a>
+                    <a onClick={() => window.localStorage.removeItem('admin_id')} href="/login"
+                    >Log Out</a>
                     </Navbar.Text>
                 </Navbar.Collapse>
             </Container>
-      </Navbar>
-     );
+        </Navbar>
+    );
 }
 export default Navigation;
