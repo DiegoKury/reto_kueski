@@ -9,10 +9,13 @@ const PORT = process.env.PORT || 3001;
 
 
 const connection = mysql.createConnection({
-    host: "10.43.52.229",
-    user: "root",
-    password: "root",
-    database: "kueski"
+    host: "kueski.mysql.database.azure.com",
+    user: "FJerm",
+    password: "AWU9y$%Ddy",
+    database: "kueski",
+    ssl: {
+        ca: fs.readFileSync(path.resolve(__dirname, "../DigiCertGlobalRootCA.crt.pem"))
+    }
 })
 
 
@@ -48,10 +51,13 @@ app.get("/api", (req, res) => {
 // Endpoint for /api/requests?type=:request_status
 app.get("/api/requests", (req, res) => {
     const connection = mysql.createConnection({
-        host: "192.168.1.24",
-        user: "root",
-        password: "root",
-        database: "kueski"
+        host: "kueski.mysql.database.azure.com",
+        user: "FJerm",
+        password: "AWU9y$%Ddy",
+        database: "kueski",
+        ssl: {
+            ca: fs.readFileSync(path.resolve(__dirname, "../DigiCertGlobalRootCA.crt.pem"))
+        }
     });
     request_status = req.query.type;
     connection.connect()
@@ -85,10 +91,13 @@ app.get("/api/requests", (req, res) => {
 // Endpoint for /api/request/:request_id
 app.get("/api/request/:request_id", (req, res) => {
     const connection = mysql.createConnection({
-        host: "192.168.1.24",
-        user: "root",
-        password: "root",
-        database: "kueski"
+        host: "kueski.mysql.database.azure.com",
+        user: "FJerm",
+        password: "AWU9y$%Ddy",
+        database: "kueski",
+        ssl: {
+            ca: fs.readFileSync(path.resolve(__dirname, "../DigiCertGlobalRootCA.crt.pem"))
+        }
     })
     request_id = req.params.request_id;
     connection.connect()
