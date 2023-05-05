@@ -24,31 +24,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get("/api", (req, res) => {
-    res.json({message: "API en funcionamiento :)"});
-});
-
-/*app.get("/api/requests", (req, res) => {
-    const connection = mysql.createConnection({
-        host: "10.43.81.152",
-        user: "root",
-        password: "root",
-        database: "kueski"
-    })
-    
-    connection.connect()
-
-    connection.query("SELECT * FROM requests", (err, result, fields) => {
-        if (err){
-            console.log("Error: ", err);
-        }
-        console.log("Result: ", result);
-        res.json(result);
-    })
-
-    connection.end()
-});*/
-
 // Endpoint for /api/requests?type=:request_status
 app.get("/api/requests", (req, res) => {
     const connection = mysql.createConnection({
@@ -61,7 +36,6 @@ app.get("/api/requests", (req, res) => {
         }
     });
     request_status = req.query.type;
-    //connection.connect()
     if (request_status == "all"){
         sql = "SELECT * FROM requests;";
     } else {
@@ -94,7 +68,6 @@ app.get("/api/requests", (req, res) => {
 // Endpoint for /api/request/:request_id
 app.get("/api/request/:request_id", (req, res) => {
     request_id = req.params.request_id;
-    //connection.connect()
     sql = "SELECT * FROM requests INNER JOIN clients ON requests.client_id = clients.client_id WHERE request_id = " + request_id + ";";
     connection.query(sql, (err, result, fields) => {
         if (err){
@@ -103,12 +76,9 @@ app.get("/api/request/:request_id", (req, res) => {
         console.log(result);
         res.json(result);
     });
-    //connection.end();
 });
 
 app.get("/api/admins", (req, res) => {
-
-    //connection.connect();
     sql = "SELECT * FROM administrator";
     connection.query(sql, (err, result, fields) => {
         if (err){
@@ -117,7 +87,6 @@ app.get("/api/admins", (req, res) => {
         console.log(result);
         res.json(result);
     });
-    //connection.end();
 });
 
 app.get("/api/admins/:admin_number", (req, res) => {
@@ -135,7 +104,6 @@ app.get("/api/admins/:admin_number", (req, res) => {
 app.get("/api/admin/:admin_id", (req, res) => {
 
     admin_id = req.params.admin_id;
-    //connection.connect();
     sql = "SELECT * FROM administrator WHERE admin_id = " + admin_id + ";";
     connection.query(sql, (err, result, fields) => {
         if (err){
@@ -144,11 +112,9 @@ app.get("/api/admin/:admin_id", (req, res) => {
         console.log(result);
         res.json(result);
     });
-    //connection.end();
 });
 
 app.get("/api/clients", (req, res) => {
-        //connection.connect();
         sql = "SELECT * FROM clients";
         connection.query(sql, (err, result, fields) => {
             if (err){
@@ -157,7 +123,7 @@ app.get("/api/clients", (req, res) => {
             console.log(result);
             res.json(result);
         });
-        //connection.end();
+
 });
 
 app.put("/api/client/:client_id", (req, res) => {
@@ -228,15 +194,6 @@ app.put("/api/client/:client_id", (req, res) => {
     });
 });
 
-//put api/requests/:request_id?client=client_id
-/*
-    si es access, oppose, o cancel --> recibe admin id y request status en el body de JSON
-    si es rectify --> recibe admin id, request status, field, changed en el body de JSON  
-
-    if (field != null)
-        sql = update requests set request_status = request_status, admin_id = admin_id WHERE request_id = request_id;
-        sql2 = update client set + field + "=" + ' + changed + ' + " WHERE client_id = client_id;
-*/
 app.put("/api/requests/:request_id", (req, res) => {
     request_id = req.params.request_id;
     client_id = req.query.client;
@@ -248,15 +205,12 @@ app.put("/api/requests/:request_id", (req, res) => {
             if (err){
                 console.log("Error: ", err);
             }
-            //console.log(result);
-            //res.json({message: "Success!"});
         });
         sql2 = "UPDATE clients SET " + req.body.fields + " = '" + req.body.changed + "' WHERE client_id = " + client_id + ";";
         connection.query(sql2, (err, result, fields) => {
             if (err){
                 console.log("Error: ", err);
             }
-            //console.log(result);
             res.json({message: "Success!"});
         });
     }
@@ -267,15 +221,12 @@ app.put("/api/requests/:request_id", (req, res) => {
             if (err){
                 console.log("Error: ", err);
             }
-            //console.log(result);
-            //res.json({message: "Success!"});
         });
         sql2 = "UPDATE clients SET client_is_blocked = true WHERE client_id = " + client_id + ";";
         connection.query(sql2, (err, result, fields) => {
             if (err){
                 console.log("Error: ", err);
             }
-            //console.log(result);
             res.json({message: "Success!"});
         });
     }
@@ -286,7 +237,6 @@ app.put("/api/requests/:request_id", (req, res) => {
             if (err){
                 console.log("Error: ", err);
             }
-            //console.log(result);
             res.json({message: "Success!"});
         });
     }
@@ -304,17 +254,12 @@ app.delete("/api/client/:client_id", (req, res) => {
         res.status(500).send("Error al eliminar la identificacion");
         return;
       }
-      //console.log(result);
-      //res.json({message: "Success!"});
-
       connection.query(sql2, (err, result, fields) => {
         if (err) {
           console.log("Error:", err);
           res.status(500).send("Error al eliminar el request");
           return;
         }
-        //console.log(result);
-        //res.json({message: "Success!"});
       });
 
       connection.query(sql3, (err, result, fields) => {
@@ -323,7 +268,6 @@ app.delete("/api/client/:client_id", (req, res) => {
           res.status(500).send("Error al eliminar el cliente");
           return;
         }
-        //console.log(result);
         res.json({message: "Success!"});
       });
     });
