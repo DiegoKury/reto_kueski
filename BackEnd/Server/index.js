@@ -1,11 +1,5 @@
 // server/index.js
-const keys = {
-    host: "kueski.mysql.database.azure.com",
-    user: "FJerm",
-    password: "BrHi5%jL",
-}
-
-module.exports = keys;
+const keys = require("./keys")
 const path = require("path");
 const express = require("express");
 const fs = require("fs");
