@@ -7,7 +7,7 @@ const Navigation = () => {
     return ( 
         <Navbar className='NavBar'>
             <Container className='logo-kueski'>
-                <a href="/App.js">
+                <a href="/">
                     <img width='180' height='90' src={logo} alt='kueski'/>
                 </a>
             </Container>

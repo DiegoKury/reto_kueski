@@ -98,7 +98,7 @@ function RequestsTable() {
         <div className='main'>
             <div className='fila'>
                 <div className='botones-texto'>
-                    <h1 className='botones-texto'>Peticiones:</h1>
+                    <h1 className='botones-texto'>Petitions:</h1>
                 </div>
                 <div className='botones'>
                     <ButtonGroup>
